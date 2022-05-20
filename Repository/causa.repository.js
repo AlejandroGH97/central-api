@@ -6,8 +6,9 @@ class CausaRepository {
     connect();
   }
 
+  // Query que busca los datos donde cause._id sea el id indicado
   async getCausa(id) {
-    console.log(`Repository::getCausa(${id})`);
+    // console.log(`Repository::getCausa(${id})`);
     let causas = {};
     try {
       causas = await Causa.find({ "cause._id": parseInt(id) });
@@ -18,16 +19,14 @@ class CausaRepository {
     return causas;
   }
 
+  // Query que agrupa _id y name de las causas para devolver una lista con causas únicas
   async getCausas() {
-    console.log("Repository::getCausas()");
+    // console.log("Repository::getCausas()");
     let causas = {};
     try {
       causas = await Causa.aggregate([
         { $group: { _id: { id: "$cause._id", name: "$cause.name" } } }, 	
       ]);
-			causas = causas.map((causa) => {
-				return {...causa["_id"]};
-			});
     } catch (err) {
       console.log("Error::", err);
     }

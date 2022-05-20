@@ -8,6 +8,7 @@ const connect = () => {
     useUnifiedTopology: true,
   });
 
+  // Abrimos la conexión solo una vez
   mongoose.connection.once("open", async () => {
     console.log("Conexión a db exitosa.");
   });
